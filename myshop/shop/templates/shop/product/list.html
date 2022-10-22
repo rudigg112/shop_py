@@ -1,0 +1,110 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+{% if category %}{{ category.name }}{% else %}Товары{% endif %}
+{% endblock %}
+{% block content %}
+
+
+
+<div class="container-fluid" >
+  <div class="row">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 200px;">
+        <h3>Категория</h3>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item" {% if not category %}class="selected"{% endif %}>
+                <a class="nav-link text-white" href="{% url 'shop:product_list' %}">Все</a>
+            </li>
+            {% for c in categories %}
+
+            <li class="nav item"  {% if category.slug == c.slug %}class="selected" {% endif %}>
+                <a class="nav-link text-white" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+            </li>
+            {% endfor %}
+
+        </ul>
+
+</div>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2"> {% if category %}{{ category.name }}{% else %}Вся продукция{% endif %}</h1>
+      </div>
+
+
+        <div class="container">
+
+        <div class="row row-cols-5 row-cols-md-4 mb-4 text-center">
+
+
+        {% for product in products %}
+			<div class="row">
+
+				<div class="card mb-4 rounded-2 shadow-sm">
+				<a href="{{ product.get_absolute_url }}">
+                    <img src="{% if product.image %}{{ product.image.url }}{%else %}{% static 'img/no_image.png' %}{% endif %}" width="200" height="300">
+                </a>
+				<div class="card-body">
+					<h1 class="card-title pricing-card-title">{{ product.name }}<small class="text-muted fw-light"></small></h1>
+					<ul class="list-unstyled mt-4 mb-4">
+                        <li>Автор: <b>{{ product.author}}</b></li>
+					</ul>
+
+			    </div>
+
+				</div>
+			</div>
+			{% if forloop.counter|divisibleby:50 %}
+
+        </div>
+
+        <div class="row">
+        {% endif %}
+
+        {% endfor %}
+
+
+       </div> <!-- end row -->
+
+    </div> <!-- end container -->
+
+
+    </main>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+

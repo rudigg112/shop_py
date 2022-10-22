@@ -1,0 +1,79 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+{{ product.name }}
+{% endblock %}
+{% block content %}
+
+
+<!---
+<div class="product-detail">
+
+
+        <h1>{{ product.name }}</h1>
+        <h2>
+        <a href="{{ product.category.get_absolute_url }}">{{product.category }}</a>
+        </h2>
+
+{{ product.description|linebreaks }}
+</div>
+--->
+
+
+
+
+
+
+
+
+<div class="container">
+    <hr class="featurette-divider">
+    <div class="row featurette" style="background-color: rgba(217, 217, 217, 1);; border-radius: 15px;">
+      <div class="col-md-7 order-md-2">
+        <h2 class="featurette-heading fw-normal lh-1"><b>{{ product.name }}</b></h2>
+          <p> <a href="{{ product.category.get_absolute_url }}">{{product.category }}</a></p>
+        <p class="lead"></p>
+          <p class="lead"></p>
+        <p class="lead">{{ product.description }}</p>
+        <br>
+        <p class="price">Стоимость: {{ product.price }} ₽</p>
+            <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                {{ cart_product_form }}
+                {% csrf_token %}
+                <input type="submit" value="В корзину" style="">
+            </form>>
+
+
+
+      </div>
+      <div class="col-md-3 order-md-1">
+          <br>
+       <img src="{% if product.image %}{{ product.image.url }}{% else %} {% static "img/no_image.png" %}{% endif %}" width="300" height="400">
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+
+
+    <hr class="featurette-divider">
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

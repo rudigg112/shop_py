@@ -1,0 +1,108 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+  Корзина покупок
+{% endblock %}
+
+{% block content %}
+
+<!---
+  <h1>Корзина покупок</h1>
+  <table class="cart">
+    <thead>
+      <tr>
+        <th>Картинка</th>
+        <th>Товар</th>
+        <th>Обновить кол-во</th>
+        <th>Удалить</th>
+        <th>Кол-во</th>
+        <th>Цена за шт</th>
+        <th>Общая стоимость</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart %}
+        {% with product=item.product %}
+          <tr>
+            <td>
+              <a href="{{ product.get_absolute_url }}">
+                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+              </a>
+            </td>
+            <td>{{ product.name }}</td>
+            <td>
+              <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                {{ item.update_quantity_form.quantity }}
+                {{ item.update_quantity_form.update }}
+                <input type="submit" value="Обновить">
+                {% csrf_token %}
+              </form>
+            </td>
+            <td><a href="{% url 'cart:cart_remove' product.id %}">Удалить</a></td>
+            <td>
+              {{ item.quantity }}
+            </td>
+            <td class="num">${{ item.price }}</td>
+            <td class="num">${{ item.total_price }}</td>
+          </tr>
+        {% endwith %}
+      {% endfor %}
+      <tr class="total">
+        <td>Всего</td>
+        <td colspan="4"></td>
+        <td class="num">${{ cart.get_total_price }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="text-right">
+    <a href="{% url 'shop:product_list' %}" class="button light">В магазин</a>
+    <a href="#" class="button">Оформить заказ</a>
+  </p>
+
+  --->
+
+
+
+ <div class="container">
+
+        <div class="row row-cols-5 row-cols-md-3 mb-3 text-center">
+          {% for item in cart %}
+                  {% with product=item.product %}
+                    <div class="row">
+
+                          <div class="card mb-4 rounded-2 shadow-sm">
+                            <br>
+                          <a href="{{ product.get_absolute_url }}">
+                              <img src="{% if product.image %}{{ product.image.url }}{%else %}{% static 'img/no_image.png' %}{% endif %}" width="250" height="350">
+                          </a>
+                          <div class="card-body">
+                              <h1 class="card-title pricing-card-title">{{ product.name }}<small class="text-muted fw-light"></small></h1>
+                              <ul class="list-unstyled mt-1 mb-1">
+                                  <li>Автор: <b>{{ product.author}}</b></li>
+                                <td><a href="{% url 'cart:cart_remove' product.id %}">Удалить</a></td>
+                              </ul>
+                              <a href="{%  url 'shop:read' product.slug %}">
+                                  <button class="btn btn-warning">Читать</button>
+                              </a>
+
+                          </div>
+
+                          </div>
+                      </div>
+                      {% if forloop.counter|divisibleby:10 %}
+
+                  </div>
+
+                  <div class="row">
+                  {% endif %}
+        {% endwith %}
+      {% endfor %}
+
+
+
+
+
+
+
+{% endblock %}

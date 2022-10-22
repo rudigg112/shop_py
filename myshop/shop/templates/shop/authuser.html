@@ -1,0 +1,24 @@
+{% extends 'shop/base.html' %}
+{% load crispy_forms_tags%}
+
+{% block title %}Регистрация{% endblock %}
+
+
+
+{% block content%}
+<div class="t3-header-wrapper" background-color="white" style="border-radius: 25px; margin: 0 auto; width:1200px;height:900;background-color:#e8edea; text-align: center;" >
+        <div class="container">
+                <div class="form_section">
+                        <h2>Регистрация</h2>
+                        <form method="POST">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <button type="submit" class="btn btn-primary" style="margin: auto;">Зарегистрироваться</button>
+                        </form>
+                        <hr>
+                        Уже зарегистрированы? <a href="{% url 'userlogin'%}">Войти</a>
+                </div>
+        </div>
+</div>
+
+{% endblock %}

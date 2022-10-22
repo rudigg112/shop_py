@@ -1,0 +1,26 @@
+{% extends 'shop/base.html' %}
+{% load crispy_forms_tags%}
+
+{% block title %}Авторизация{% endblock %}
+
+
+
+{% block content%}
+<div class="t3-header-wrapper" background-color="white" style="border-radius: 25px; margin: 0 auto; width:350px;height:310px;background-color:#e8edea; text-align: center;" >
+        <div class="container" >
+                <div class="form_section">
+                        <br>
+                        <h2>Авторизация</h2>
+                        <form method="POST">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <br>
+                                <button type="submit" class="btn btn-primary" style="width:100px; height:auto;flex-wrap: wrap"> <font color="black" >Войти</font></button>
+                        </form>
+                        <hr>
+                        <font color="black">Нет аккаунта? </font><a href="{% url 'reg' %}">Зарегистрироваться</a>
+                </div>
+        </div>
+</div>
+
+{% endblock %}
